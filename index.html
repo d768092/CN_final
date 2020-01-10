@@ -12,9 +12,11 @@
 					{username: $('#username').val(),
 					password: $('#password').val()},
 					function(response){
+						
 						if(response=='success'){
-							window.location='chatroom.html';
+							window.location='chatroom.php';
 						}
+						
 						else{
 							$('#error').text(response);
 							$('#username').val('');
@@ -32,7 +34,7 @@
 							$('#error').text('帳號建立完成~');
 						}
 						else{
-							$('#error').text('帳號已存在，請重新選擇帳號名稱');
+							$('#error').text(response);
 							$('#username').val('');
 							$('#password').val('');
 						}
@@ -55,7 +57,7 @@
 			<div class="inputLi">
 				<input id="password" type="password" class="pwd" placeholder="密碼" required>
 			</div>
-			<p id="error" style="color:red; font-size: 12px;"></p>
+			<p id="error" style="color:red; font-size: 18px;"></p>
 			<div class="inputLi">
 				<button id="login">登入</button>
 			</div>
