@@ -17,8 +17,16 @@ else{
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>
+		function send(name){
+			$('#chat_to').text(name);
+			$.post('sendmsg.php',
+				{chat_to: name},
+				function(response){
+					$('#msg').text(response);
+				}
+			)
+		}
 		$(document).ready(function() {
-			$("#chatlist").load("chatlist.php");
 			$("#finduser").click(function() {
 				$.post('finduser.php',
 					{findname: $('#findname').val()},
@@ -35,13 +43,38 @@ else{
 			});
 		});
 	</script>
-	<!--<link rel="stylesheet" href="./login.css">-->
+	<title>popCorN</title>
+	<link rel="stylesheet" href="./chatroom.css">
 </head>
 <body>
-<h1><?php echo $username; ?></h1>
-<input id="findname" type="text" placeholder="搜尋使用者名稱"><button id="finduser">搜尋</button>
-<p id="error" style="color:red;"></p>
-<div id="chatlist"></div>	
+
+<div class="header">
+<h1><?php echo $username; ?>的聊天室</h1>
+</div>
+<div class="chatroom">
+<div class="sidebar">
+<input id="findname" type="text" placeholder="搜尋使用者名稱">
+<button id="finduser">搜尋</button>
+<div id="error" style="color:red;"></div>
+<div id="chatlist">
+<?php
+$namehash = hash('sha256', $username);
+$jsonfile = 'user_data/'.substr($namehash, 0, 16).'.json';
+$json_string = file_get_contents($jsonfile);
+$data = json_decode($json_string, true);
+foreach($data as $key => $value){
+	$func = "send('".$key."')>";
+	echo '<button onclick='.$func.$key.'</button><br>';
+}
+?>
+</div>
+</div>
+<div class="middle">
+<div class="chat_to" id="chat_to">選個朋友來聊天吧!</div>
+<div class="msg" id="msg"></div>
+<input class="input_msg" id="input_msg" type="text" placeholder="輸入訊息"><button id="commit" style="float: right;">傳送</button><button id="upload" style="float: left;">上傳檔案</button>
+</div>
+</div>
 	
 </body>
 

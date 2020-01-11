@@ -1,0 +1,63 @@
+body {
+	margin: 0px;
+}
+.chatroom {
+	height: 100%; 
+	background-image: url('./popcorn.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.header{
+	width: 100%;
+	height: 80px;
+	background-color: #228B22;
+}
+.header h1{
+	width: 800px;
+	height: 100%;
+	text-align: center;
+	line-height: 80px;
+	font-size: 40px;
+	color: white;
+}
+.sidebar{
+	width: 200px;
+	float: left;
+	height: 400px;
+	text-align: left;
+	font-size: 15px;
+	font-weight: bold;
+}
+.middle{
+	width:600px;
+	height: 500px;
+	font-size: 15px;
+	font-weight: bold;
+	float: left;
+}
+.middle .chat_to{
+	border: 2px black solid;
+	background-color: #fff;
+	width: 600px;
+	height: 50px;
+	font-size: 30px;
+}
+.middle .msg{
+	border: 2px black solid;
+	background-color: #fff;
+	width: 600px;
+	height: 400px;
+	overflow: auto;
+}
+.middle .input_msg{
+	border: 2px black solid;
+	background-color: #fff;
+	width: 500px;
+	height: 50px;
+	overflow: auto;
+}
+.middle button{
+	width: 50px;
+	height: 50px;
+	display: inline-block;
+}
