@@ -10,6 +10,7 @@ else{
 }
 
 $findname = $_POST["findname"];
+
 if($findname==$username) exit('');
 $jsonfile = 'userpasswd.json';
 $json_string = file_get_contents($jsonfile);
@@ -31,7 +32,7 @@ if(array_key_exists($findname, $data)){
 	$json_string = json_encode($data);
 	file_put_contents($jsonfile, $json_string);
 	$func = "send('".$findname."')>";
-	echo '<button onclick=".$func.$findname.'</button><br>';
+	echo '<button onclick='.$func.$findname.'</button><br>';
 }
 else echo "not found";
 ?>
