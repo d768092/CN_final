@@ -1,5 +1,6 @@
 <?php
 //phpinfo();
+	header("Location: chatroom.php");
 	ini_set("display_errors", "On");
 	if(isset($_FILES['image'])){
 		$errors = array();
@@ -20,10 +21,11 @@
 		}
 
 		if(empty($errors) == true){
-			move_uploaded_file($file_tmp, "images/".$file_name);
+			move_uploaded_file($file_tmp, "upload/".$file_name);
 			echo "Success";
 		}else{
 			print_r($errors);
 		}
 	}
+	exit();
 ?>
