@@ -73,6 +73,10 @@ foreach($data as $key => $value){
 <div class="chat_to" id="chat_to">選個朋友來聊天吧!</div>
 <div class="msg" id="msg"></div>
 <input class="input_msg" id="input_msg" type="text" placeholder="輸入訊息"><button id="commit" style="float: right;">傳送</button><button id="upload" style="float: left;">上傳檔案</button>
+<form action = "uploadfile.php" method = "POST" enctype = "multipart/form-data" target = "_blank">
+	<input type = "file" name = "image" />
+	<input type = "submit"/>
+</form>
 </div>
 </div>
 	
