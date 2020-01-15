@@ -49,6 +49,25 @@ body {
 	height: 400px;
 	overflow: auto;
 }
+.middle input[name=image]{
+	display: inline-block;
+	width: 250px;
+	height: 25px;
+	margin: auto;
+}
+.middle input[type=submit]{
+	display: inline-block;
+	width: 50px;
+	height: 25px;
+	margin: auto;
+
+}
+.middle input[name=path]{
+	display: inline-block;
+	width: 250px;
+	height: 25px;
+	margin: auto;
+}
 .middle .input_msg{
 	border: 2px black solid;
 	background-color: #fff;
@@ -61,15 +80,4 @@ body {
 	height: 50px;
 	display: inline-block;
 }
-.middle input[name=image]{
-	width: 250px;
-	height: 25px;
-}
-.middle input[type=submit]{
-	width: 50px;
-	height: 25px;
-}
-.middle input[name=path]{
-	width: 256px;
-	height: 25px;
-}
+

@@ -79,18 +79,17 @@ foreach($data as $key => $value){
 <div class="middle">
 <div class="chat_to" id="chat_to">選個朋友來聊天吧!</div>
 <div class="msg" id="msg"></div>
-<input class="input_msg" id="input_msg" type="text" placeholder="輸入訊息">
-<button type="button "id="commit" onclick="sendmsg()" style="float: right;">傳送</button> 
 <form action = "uploadfile.php" method = "POST" enctype = "multipart/form-data" target = "_blank" id = "upload" onsubmit = "sendmsg_file()">
 	<input type = "file" name = "image" onclick="setvalue()" onchange="showname()"/>
 	<input type = "submit"/>
 	<input type = "hidden" name = "chat_to"/>
 </form>
-
 <form action="download.php" method = "POST" enctype="multipart/form-data" targer="_blank" id="download">
 	<input type = "text" name="path"/>
 	<input type = "submit" value ="下載"/>
 </form>
+<input class="input_msg" id="input_msg" type="text" placeholder="輸入訊息">
+<button type="button "id="commit" onclick="sendmsg()" style="float: right;">傳送</button> 
 </div>
 </div>
 <script> 
