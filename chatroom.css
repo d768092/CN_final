@@ -52,7 +52,7 @@ body {
 .middle .input_msg{
 	border: 2px black solid;
 	background-color: #fff;
-	width: 500px;
+	width: 550px;
 	height: 50px;
 	overflow: auto;
 }
@@ -60,4 +60,16 @@ body {
 	width: 50px;
 	height: 50px;
 	display: inline-block;
+}
+.middle input[name=image]{
+	width: 250px;
+	height: 25px;
+}
+.middle input[type=submit]{
+	width: 50px;
+	height: 25px;
+}
+.middle input[name=path]{
+	width: 256px;
+	height: 25px;
 }
