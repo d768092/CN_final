@@ -20,14 +20,18 @@ else{
 		function send(name){
 			$('#chat_to').text(name);
 			$.post('sendmsg.php',
-				{chat_to: name},
+				{chat_to: name,
+				 input_msg: NULL},
 				function(response){
-					$('#msg').text(response);
+					//$('#msg').text(response);
 				}
 			)
 		}
+		
+	
 		$(document).ready(function() {
 			$("#finduser").click(function() {
+				//document.getElementById("chat_to").textContent = "pogger"; 
 				$.post('finduser.php',
 					{findname: $('#findname').val()},
 					function(response){
@@ -41,6 +45,16 @@ else{
 					}
 				)
 			});
+
+			/*$("#commit").click(function(){
+				$('#input_msg').text("YOYO");
+				$.post('sendmsg.php',
+					{chat_to: $("#chat_to").text(),
+			 		input_msg: $("input_msg").text()},
+			 		function(response){
+						;}
+				)}
+			);*/
 		});
 	</script>
 	<title>popCorN</title>
@@ -60,6 +74,7 @@ else{
 <?php
 $namehash = hash('sha256', $username);
 $jsonfile = 'user_data/'.substr($namehash, 0, 16).'.json';
+//echo $jsonfile;
 $json_string = file_get_contents($jsonfile);
 $data = json_decode($json_string, true);
 foreach($data as $key => $value){
@@ -72,14 +87,28 @@ foreach($data as $key => $value){
 <div class="middle">
 <div class="chat_to" id="chat_to">選個朋友來聊天吧!</div>
 <div class="msg" id="msg"></div>
-<input class="input_msg" id="input_msg" type="text" placeholder="輸入訊息"><button id="commit" style="float: right;">傳送</button><button id="upload" style="float: left;">上傳檔案</button>
+<input class="input_msg" id="input_msg" type="text" placeholder="輸入訊息">
+<button type="button "id="commit" onclick="sendmsg()" style="float: right;">傳送</button>
+<button id="upload" style="float: left;">上傳檔案</button>
 <form action = "uploadfile.php" method = "POST" enctype = "multipart/form-data" target = "_self">
 	<input type = "file" name = "image" />
 	<input type = "submit"/>
 </form>
 </div>
 </div>
-	
+<script> 
+		function sendmsg()
+		{
+			//$('#msg').text("HEY");
+			$.post('sendmsg.php',
+			{chat_to: document.getElementById("chat_to").textContent,
+			 input_msg: document.getElementById("input_msg").value},
+			 function(response){
+			 	$('#msg').text(response);
+			 })
+		}
+
+</script>	
 </body>
 
 </html>

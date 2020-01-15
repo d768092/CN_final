@@ -5,12 +5,12 @@ if(isset($_SESSION['username'])){
 	$username=$_SESSION['username'];
 }
 else{
-	alert('請重新整理網頁');
+	//alert('請重新整理網頁');
 	exit;
 }
 
 $findname = $_POST["findname"];
-
+echo $findname;
 if($findname==$username) exit('');
 $jsonfile = 'userpasswd.json';
 $json_string = file_get_contents($jsonfile);
@@ -25,7 +25,10 @@ if(array_key_exists($findname, $data)){
 		$data = json_decode($json_string, true);
 		if(array_key_exists($findname, $data)){
 			exit('');
+		}else{
+			$data[$findname] = $msgfile;
 		}
+
 	}
 	else $data = array();
 	$data[$findname] = $msgfile;
