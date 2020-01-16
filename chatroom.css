@@ -47,7 +47,8 @@ body {
 	background-color: #fff;
 	width: 600px;
 	height: 400px;
-	overflow: hidden;
+	overflow: auto;
+	word-break: break-all;
 }
 .middle input[name=image]{
 	background-color: #fff;
@@ -75,6 +76,7 @@ body {
 	width: 550px;
 	height: 50px;
 	overflow: auto;
+	word-break: break-all;
 }
 .middle button{
 	width: 50px;
