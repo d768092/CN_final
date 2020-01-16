@@ -32,7 +32,11 @@ if(is_file($msgfile)){
 		if(strpos($key, 'upload') !== false){ 
 			echo "upload!";
 		}else{
-			echo nl2br("User ".substr($key,0,-11)." says ".$value."\n");
+			$talker = substr($key,0,-11);
+			if($talker==$username) $msg = '<div class="mine">';
+			else if($talker==$chat_to) $msg = '<div class="others">';
+			echo $msg.'<div class="words">'.$value.'</div></div>';
+			//echo nl2br("User ".substr($key,0,-11)." says ".$value."\n");
 		}
 	}
 }

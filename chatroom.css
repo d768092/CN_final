@@ -50,23 +50,58 @@ body {
 	overflow: auto;
 	word-break: break-all;
 }
-.middle input[name=image]{
+.middle .msg .others{
+	width: 400px;
+	word-break: break-all;
+	float: left;
+	margin: 5px;
+}
+.middle .msg .others .words{
+	padding: 5px;
+	border-radius: 10px;
+	background-color: gray;
+	color: black;
+	float: left;
+}
+.middle .msg .mine{
+	width: 400px;
+	/*
+	border-radius: 10px;
+	background-color: blue;
+	color: white;
+	*/
+	word-break: break-all;
+	float: right;
+	margin: 5px;
+}
+
+.middle .msg .mine .words{
+	padding: 5px;
+	border-radius: 10px;
+	background-color: blue;
+	color: white;
+	float: right;
+}
+.middle .form{
+	width: 290px;
+	/*float: left;*/
+}
+.middle .form input[name=image]{
 	background-color: #fff;
 	display: inline-block;
-	width: 250px;
+	width: 236px;
 	height: 25px;
 	margin: auto;
 }
-.middle input[type=submit]{
+.middle .form input[type=submit]{
 	display: inline-block;
 	width: 50px;
 	height: 25px;
 	margin: auto;
-
 }
 .middle input[name=path]{
 	display: inline-block;
-	width: 250px;
+	width: 236px;
 	height: 25px;
 	margin: auto;
 }
