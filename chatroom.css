@@ -50,6 +50,7 @@ body {
 	overflow: auto;
 }
 .middle input[name=image]{
+	background-color: #fff;
 	display: inline-block;
 	width: 250px;
 	height: 25px;

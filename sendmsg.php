@@ -21,7 +21,7 @@ if(is_file($msgfile)){
 	$json_string_msg = file_get_contents($msgfile);
 	$data_msg = json_decode($json_string_msg, true);
 	$user_time = $username."_".$time;
-	$data_msg[$user_time] = $input_msg;
+	if(isset($input_msg)&&$input_msg!='') $data_msg[$user_time] = $input_msg;
 
 	foreach($data_msg as $key => $value)
 	{
