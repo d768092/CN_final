@@ -19,22 +19,21 @@ else{
 	<script>
 		function send(name){
 			$('#chat_to').text(name);
-			//document.getElementById("upload").elements["chat_to"] = name;
-			//echo document.getElementById("upload");
 			$.post('sendmsg.php',
 				{chat_to: name, timestamp: 0},
 				function(response){
-					var json=JSON.parse(response);
-					$('#msg').html(json.message);
-					$('#timestamp').text(json.timestamp);
-				 	msg.scrollTop=msg.scrollHeight;
+					if(response!=''){
+						var json=JSON.parse(response);
+						$('#msg').html(json.message);
+						$('#timestamp').text(json.timestamp);
+				 		msg.scrollTop=msg.scrollHeight;
+					}
 				}
 			)
 		}
 		
 		$(document).ready(function() {
 			$("#finduser").click(function() {
-				//document.getElementById("chat_to").textContent = "pogger"; 
 				$.post('finduser.php',
 					{findname: $('#findname').val()},
 					function(response){
@@ -45,7 +44,7 @@ else{
 							$('#error').text(response);
 						}
 						else{
-							$('#error').val('');
+							$('#error').text('');
 							$('#chatlist').append(response);
 						}
 					}
@@ -113,9 +112,11 @@ foreach($data as $key => $value){
 			input_msg: 'upload/'+ temp.substr(12),
 			timestamp:  document.getElementById("timestamp").textContent},
 			function(response){	
-				var json=JSON.parse(response);
-				$('#msg').append(json.message);
-				$('#timestamp').text(json.timestamp);
+				if(response!=''){
+					var json=JSON.parse(response);
+					$('#msg').append(json.message);
+					$('#timestamp').text(json.timestamp);
+				}
 			})
 			
 			var form = document.getElementById("upload");
@@ -148,21 +149,25 @@ foreach($data as $key => $value){
 			 input_msg: document.getElementById("input_msg").value,
 			 timestamp: document.getElementById("timestamp").textContent},
 			 function(response){
-				var json=JSON.parse(response);
-				$('#msg').append(json.message);
-				$('#timestamp').text(json.timestamp);
-			 	$('#input_msg').val('');
-				msg.scrollTop=msg.scrollHeight;
-			 })
+				if(response!=''){
+					var json=JSON.parse(response);
+					$('#msg').append(json.message);
+					$('#timestamp').text(json.timestamp);
+			 		$('#input_msg').val('');
+					msg.scrollTop=msg.scrollHeight;
+			 	}
+			})
 		}
 		function getmsg(){
 			$.post('sendmsg.php',
 				{chat_to: document.getElementById("chat_to").textContent,
 				timestamp: document.getElementById("timestamp").textContent},
 				function(response){
-					var json=JSON.parse(response);
-					$('#msg').append(json.message);
-					$('#timestamp').text(json.timestamp);
+					if(response!=''){
+						var json=JSON.parse(response);
+						$('#msg').append(json.message);
+						$('#timestamp').text(json.timestamp);
+					}
 				}
 			)
 		}
