@@ -83,9 +83,9 @@ foreach($data as $key => $value){
 <input class="input_msg" id="input_msg" type="text" placeholder="輸入訊息">
 <button type="button "id="commit" onclick="sendmsg()" style="float: right;">傳送</button> 
 <div class="form" style="float: left;">
-<form action = "uploadfile.php" method = "POST" enctype = "multipart/form-data" target = "_blank" id = "upload" onsubmit = "sendmsg_file()">
-	<input type = "file" name = "image" onclick="setvalue()" onchange="showname()"/>
-	<input type = "submit"/>
+<form action = "" enctype = "multipart/form-data" id = "upload">
+	<input type = "file" name = "file" onclick="setvalue()" onchange="showname()"/>
+	<input type = "button" value="傳送" onclick="sendfile()"/>
 	<input type = "hidden" name = "chat_to"/>
 </form>
 </div>
@@ -98,16 +98,31 @@ foreach($data as $key => $value){
 </div>
 </div>
 <script> 
-		function sendmsg_file(){
-			var temp = ($("input[name=image]").val())
+		function sendfile()
+		{
+			var temp = ($("input[name=file]").val());
 			$.post('sendmsg.php',
 			{chat_to : document.getElementById("chat_to").textContent,
 			input_msg: 'upload/'+ temp.substr(12)},
 			function(response){;}
 			)
+			
+			var form = document.getElementById("upload");
+			var formData = new FormData(form);
+			$.ajax({
+				url: 'uploadfile.php',
+				data: formData,
+				type: 'POST',
+				processData: false,
+				contentType: false,
+				success: function(response){
+					alert(response);
+				}
+			});
+
 		}
 		function showname(){
-		 	var temp = ($("input[name=image]").val());
+		 	var temp = ($("input[name=file]").val());
 			alert('Select Files: '+ temp.substr(12));
 		}
 		function setvalue(){
