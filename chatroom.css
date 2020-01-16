@@ -47,7 +47,7 @@ body {
 	background-color: #fff;
 	width: 600px;
 	height: 400px;
-	overflow: auto;
+	overflow: hidden;
 }
 .middle input[name=image]{
 	background-color: #fff;
