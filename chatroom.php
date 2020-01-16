@@ -22,9 +22,11 @@ else{
 			//document.getElementById("upload").elements["chat_to"] = name;
 			//echo document.getElementById("upload");
 			$.post('sendmsg.php',
-				{chat_to: name},
+				{chat_to: name, timestamp: 0},
 				function(response){
-					$('#msg').html(response);
+					var json=JSON.parse(response);
+					$('#msg').html(json.message);
+					$('#timestamp').text(json.timestamp);
 				 	msg.scrollTop=msg.scrollHeight;
 				}
 			)
@@ -37,7 +39,10 @@ else{
 				$.post('finduser.php',
 					{findname: $('#findname').val()},
 					function(response){
-						if(response=='not found'){
+						if(response=='error'){
+							alert('請重新整理網頁!');
+						}
+						else if(response=='not found'){
 							$('#error').text(response);
 						}
 						else{
@@ -79,11 +84,12 @@ foreach($data as $key => $value){
 <div class="middle">
 <div class="chat_to" id="chat_to">選個朋友來聊天吧!</div>
 <div class="msg" id="msg"></div>
+<div id="timestamp" style="display: none;"></div>
 <div class="msg_end" id="msg_end" style="height:0px;"></div>
 <input class="input_msg" id="input_msg" type="text" placeholder="輸入訊息">
-<button type="button "id="commit" onclick="sendmsg()" style="float: right;">傳送</button> 
+<button type="button" id="commit" onclick="sendmsg()" style="float: right;">傳送</button> 
 <div class="form" style="float: left;">
-<form action = "" enctype = "multipart/form-data" id = "upload">
+<form enctype = "multipart/form-data" id = "upload">
 	<input type = "file" name = "file" onclick="setvalue()" onchange="showname()"/>
 	<input type = "button" value="傳送" onclick="sendfile()"/>
 	<input type = "hidden" name = "chat_to"/>
@@ -103,9 +109,13 @@ foreach($data as $key => $value){
 			var temp = ($("input[name=file]").val());
 			$.post('sendmsg.php',
 			{chat_to : document.getElementById("chat_to").textContent,
-			input_msg: 'upload/'+ temp.substr(12)},
-			function(response){;}
-			)
+			input_msg: 'upload/'+ temp.substr(12),
+			timestamp:  document.getElementById("timestamp").textContent},
+			function(response){	
+				var json=JSON.parse(response);
+				$('#msg').append(json.message);
+				$('#timestamp').text(json.timestamp);
+			})
 			
 			var form = document.getElementById("upload");
 			var formData = new FormData(form);
@@ -123,7 +133,7 @@ foreach($data as $key => $value){
 		}
 		function showname(){
 		 	var temp = ($("input[name=file]").val());
-			alert('Select Files: '+ temp.substr(12));
+			if(temp!='') alert('Select Files: '+ temp.substr(12));
 		}
 		function setvalue(){
 			$("input[name=chat_to]").val($("#chat_to").text());
@@ -134,18 +144,24 @@ foreach($data as $key => $value){
 		{
 			$.post('sendmsg.php',
 			{chat_to: document.getElementById("chat_to").textContent,
-			 input_msg: document.getElementById("input_msg").value},
+			 input_msg: document.getElementById("input_msg").value,
+			 timestamp: document.getElementById("timestamp").textContent},
 			 function(response){
-			 	 $('#input_msg').val('');
-				 $('#msg').html(response);
-				 msg.scrollTop=msg.scrollHeight;
+				var json=JSON.parse(response);
+				$('#msg').append(json.message);
+				$('#timestamp').text(json.timestamp);
+			 	$('#input_msg').val('');
+				msg.scrollTop=msg.scrollHeight;
 			 })
 		}
 		function getmsg(){
 			$.post('sendmsg.php',
-				{chat_to: document.getElementById("chat_to").textContent},
+				{chat_to: document.getElementById("chat_to").textContent,
+				timestamp: document.getElementById("timestamp").textContent},
 				function(response){
-					$('#msg').html(response);
+					var json=JSON.parse(response);
+					$('#msg').append(json.message);
+					$('#timestamp').text(json.timestamp);
 				}
 			)
 		}

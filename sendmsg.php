@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 if(isset($_SESSION['username'])){
 	$username=$_SESSION['username'];
@@ -10,6 +11,13 @@ else{
 
 $chat_to = $_POST['chat_to'];
 $input_msg = $_POST['input_msg'];
+$timestamp = $_POST['timestamp'];
+/*
+$username = 'd768092';
+$chat_to = 'cwg50805';
+$input_msg = null;
+$timestamp = '1579190075';
+*/
 $namehash = hash('sha256', $username);
 $jsonfile_user = 'user_data/'.substr($namehash, 0, 16).'.json';
 if(!is_file($jsonfile_user)) exit('');
@@ -27,18 +35,19 @@ if(is_file($msgfile)){
 		$json_string_msg = json_encode($data_msg);
 		file_put_contents($msgfile, $json_string_msg);
 	}
+	$all = '';
 	foreach($data_msg as $key => $value)
 	{
-		if(strpos($key, 'upload') !== false){ 
-			echo "upload!";
-		}else{
+		$lasttime = substr($key, -10, 10);
+		if($lasttime>$timestamp){
 			$talker = substr($key,0,-11);
 			if($talker==$username) $msg = '<div class="mine">';
 			else if($talker==$chat_to) $msg = '<div class="others">';
-			echo $msg.'<div class="words">'.$value.'</div></div>';
-			//echo nl2br("User ".substr($key,0,-11)." says ".$value."\n");
+			$all =  $all.$msg.'<div class="words">'.$value.'</div></div>';
 		}
 	}
+	$json = array('timestamp'=>$lasttime, 'message'=>$all);
+	echo json_encode($json);
 }
 ?>
 

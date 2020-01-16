@@ -13,14 +13,14 @@
 		$file_type = $_FILES['file']['type'];
 		$file_ext = strtolower(end(explode('.',$_FILES['file']['name'])));
 
-		$extensions= array("jpeg", "jpg", "png");
+		$extensions= array("jpeg", "jpg", "png", "mp3", "txt");
 
 		if(in_array($file_ext, $extensions)=== false){
-			$errorsp[]= "extension not allowed, please choose a JPEG or PNG file.";
+			$errors[]= "extension not allowed, please choose a JPEG or PNG file.";
 		}
 
 		if($file_size > 15728640){
-			$errors[]= 'File size must be exactly 2MB';
+			$errors[]= 'File size must less than 2MB';
 		}
 
 		if(empty($errors) == true){
