@@ -20,7 +20,7 @@
 		}
 
 		if($file_size > 15728640){
-			$errors[]= 'File size must less than 2MB';
+			$errors[]= 'File size must less than 15MB';
 		}
 
 		if(empty($errors) == true){
