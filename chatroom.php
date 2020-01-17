@@ -83,21 +83,43 @@ foreach($data as $key => $value){
 <input class="input_msg" id="input_msg" type="text" placeholder="輸入訊息">
 <button type="button "id="commit" onclick="sendmsg()" style="float: right;">傳送</button> 
 <div class="form" style="float: left;">
-<form action = "" enctype = "multipart/form-data" id = "upload">
+<form enctype = "multipart/form-data" id = "upload">
 	<input type = "file" name = "file" onclick="setvalue()" onchange="showname()"/>
 	<input type = "button" value="傳送" onclick="sendfile()"/>
 	<input type = "hidden" name = "chat_to"/>
 </form>
 </div>
 <div class="form" style="float: right;">
-<form action="download.php" method = "POST" enctype="multipart/form-data" targer="_blank" id="download">
+<form action="download.php" method="POST" enctype="multipart/form-data"  id="download" onsubmit="dissubmit()">
 	<input type = "text" name="path"/>
-	<input type = "submit" value ="下載"/>
+	<input type = "button" value="確認" onclick="downloadfile()"/>
+	<input type = "submit" value="下載" id="submit_download" disabled="disabled"/>
 </form>
 </div>
 </div>
 </div>
-<script> 
+<script> 	
+		function dissubmit(){
+			$('#submit_download').prop("disabled", true);
+		}
+		function downloadfile()
+		{
+			var form = document.getElementById("download");
+			var formData = new FormData(form);
+			$.ajax({
+				url:	'checkfile.php',
+				type: 	'POST',
+				data:	formData,
+				processData: false,
+				contentType: false,
+				success: function(response){
+					alert(response);
+					if(response == "You can download the file!"){
+						$('#submit_download').prop("disabled", false);
+					}
+				}
+		})
+		}
 		function sendfile()
 		{
 			var temp = ($("input[name=file]").val());
@@ -107,6 +129,14 @@ foreach($data as $key => $value){
 			function(response){;}
 			)
 			
+			$.post('add_to_file.php',
+			{chat_to : document.getElementById("chat_to").textContent,
+			file_name: temp.substr(12),},
+			function(response){
+				alert(response);}
+			)
+				
+
 			var form = document.getElementById("upload");
 			var formData = new FormData(form);
 			$.ajax({

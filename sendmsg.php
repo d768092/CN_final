@@ -30,7 +30,7 @@ if(is_file($msgfile)){
 	foreach($data_msg as $key => $value)
 	{
 		if(strpos($key, 'upload') !== false){ 
-			echo "upload!";
+			echo "OWOW";
 		}else{
 			$talker = substr($key,0,-11);
 			if($talker==$username) $msg = '<div class="mine">';
