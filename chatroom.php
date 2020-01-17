@@ -8,6 +8,7 @@ else{
 	header('Location: index.html');
 	exit;
 }
+ini_set("Allow_url_Fopen", "On");
 ?>
 <html lang="en">
 
@@ -108,8 +109,7 @@ foreach($data as $key => $value){
 		function dissubmit(){
 			$('#submit_download').prop("disabled", true);
 		}
-		function downloadfile()
-		{
+		function downloadfile(){
 			var form = document.getElementById("download");
 			var formData = new FormData(form);
 			$.ajax({
@@ -122,7 +122,7 @@ foreach($data as $key => $value){
 					alert(response);
 					if(response == "You can download the file!"){
 						$('#submit_download').prop("disabled", false);
-					}
+				}
 				}
 		})
 		}
@@ -143,7 +143,7 @@ foreach($data as $key => $value){
 			
 			$.post('add_to_file.php',
 			{chat_to : document.getElementById("chat_to").textContent,
-			file_name: temp.substr(12),},
+			file_name: temp.substr(12)},
 			function(response){
 				alert(response);}
 			)

@@ -12,7 +12,6 @@
 		$file_tmp = $_FILES['file']['tmp_name'];
 		$file_type = $_FILES['file']['type'];
 		$file_ext = strtolower(end(explode('.',$_FILES['file']['name'])));
-
 		$extensions= array("jpeg", "jpg", "png", "mp3", "txt");
 
 		if(in_array($file_ext, $extensions)=== false){
@@ -24,7 +23,8 @@
 		}
 
 		if(empty($errors) == true){
-			move_uploaded_file($file_tmp, "upload/".$file_name);
+			$namehash = hash('sha256', $chat_to);
+			move_uploaded_file($file_tmp, "upload/".substr($namehash,0,16)."_".$file_name);
 			echo "Successfully send file to: ";
 			echo $chat_to;
 		}else{
