@@ -37,9 +37,6 @@ if(is_file($msgfile)){
 	$all = '';
 	foreach($data_msg as $key => $value)
 	{
-		if(strpos($key, 'upload') !== false){ 
-			echo "OWOW";
-		}else{
 		$lasttime = substr($key, -10, 10);
 		if($lasttime>$timestamp){
 			$talker = substr($key,0,-11);

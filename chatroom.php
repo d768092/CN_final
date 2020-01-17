@@ -87,11 +87,8 @@ foreach($data as $key => $value){
 <div id="timestamp" style="display: none;"></div>
 <div class="msg_end" id="msg_end" style="height:0px;"></div>
 <input class="input_msg" id="input_msg" type="text" placeholder="輸入訊息">
-<<<<<<< HEAD
 <button type="button "id="commit" onclick="sendmsg()" style="float: right;">傳送</button> 
 <div class="form" style="float: left;">
-=======
->>>>>>> 5fa72b572f6dcc759bc5e7d62b43ec39bea97a04
 <form enctype = "multipart/form-data" id = "upload">
 	<input type = "file" name = "file" onclick="setvalue()" onchange="showname()"/>
 	<input type = "button" value="傳送" onclick="sendfile()"/>
@@ -202,7 +199,7 @@ foreach($data as $key => $value){
 						$('#msg').append(json.message);
 						$('#timestamp').text(json.timestamp);
 					}
-				}i
+				}
 			)
 		}
 		setInterval(getmsg, 5000);
