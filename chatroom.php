@@ -207,10 +207,11 @@ foreach($data as $key => $value){
 			$.post('getwhofile.php',
 			{timestamp: document.getElementById("timestamp").textContent},
 			function(response){
-				alert(response);})
+				if(response != "")	alert(response);
+			})
 		}
 		setInterval(getmsg, 5000);
-		setInterval(getwhofile, 20000);
+		setInterval(getwhofile, 40000);
 </script>
 </body>
 </html>
