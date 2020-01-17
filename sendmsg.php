@@ -20,7 +20,6 @@ $timestamp = '1579190075';
 */
 $namehash = hash('sha256', $username);
 $jsonfile_user = 'user_data/'.substr($namehash, 0, 16).'.json';
-if(!is_file($jsonfile_user)) exit('');
 $json_string_user = file_get_contents($jsonfile_user);
 $data_user = json_decode($json_string_user, true);
 $msgfile = $data_user[$chat_to];
@@ -49,6 +48,7 @@ if(is_file($msgfile)){
 	$json = array('timestamp'=>$lasttime, 'message'=>$all);
 	echo json_encode($json);
 }
+else echo '{}';
 ?>
 
 

@@ -22,8 +22,8 @@ else{
 			$.post('sendmsg.php',
 				{chat_to: name, timestamp: 0},
 				function(response){
-					if(response!=''){
-						var json=JSON.parse(response);
+					var json=JSON.parse(response);
+					if(json.hasOwnProperty("message")){
 						$('#msg').html(json.message);
 						$('#timestamp').text(json.timestamp);
 				 		msg.scrollTop=msg.scrollHeight;
@@ -88,7 +88,7 @@ foreach($data as $key => $value){
 <div class="msg_end" id="msg_end" style="height:0px;"></div>
 <input class="input_msg" id="input_msg" type="text" placeholder="輸入訊息">
 <button type="button" id="commit" onclick="sendmsg()" style="float: right;">傳送</button> 
-<div class="form" style="float: left;">
+<div class="form" istyle="float: left;">
 <form enctype = "multipart/form-data" id = "upload">
 	<input type = "file" name = "file" onclick="setvalue()" onchange="showname()"/>
 	<input type = "button" value="傳送" onclick="sendfile()"/>
@@ -112,8 +112,8 @@ foreach($data as $key => $value){
 			input_msg: 'upload/'+ temp.substr(12),
 			timestamp:  document.getElementById("timestamp").textContent},
 			function(response){	
-				if(response!=''){
-					var json=JSON.parse(response);
+				var json=JSON.parse(response);
+				if(json.hasOwnProperty("message")){
 					$('#msg').append(json.message);
 					$('#timestamp').text(json.timestamp);
 				}
@@ -149,8 +149,8 @@ foreach($data as $key => $value){
 			 input_msg: document.getElementById("input_msg").value,
 			 timestamp: document.getElementById("timestamp").textContent},
 			 function(response){
-				if(response!=''){
-					var json=JSON.parse(response);
+				var json=JSON.parse(response);
+				if(json.hasOwnProperty("message")){
 					$('#msg').append(json.message);
 					$('#timestamp').text(json.timestamp);
 			 		$('#input_msg').val('');
@@ -163,12 +163,13 @@ foreach($data as $key => $value){
 				{chat_to: document.getElementById("chat_to").textContent,
 				timestamp: document.getElementById("timestamp").textContent},
 				function(response){
-					if(response!=''){
-						var json=JSON.parse(response);
+					console.log(response);
+					var json=JSON.parse(response);
+					if(json.hasOwnProperty("message")){
 						$('#msg').append(json.message);
 						$('#timestamp').text(json.timestamp);
 					}
-				}
+				}i
 			)
 		}
 		setInterval(getmsg, 5000);
