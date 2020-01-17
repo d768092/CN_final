@@ -60,12 +60,12 @@ else{
 
 <div class="header">
 <h1><?php echo $username; ?>的聊天室</h1>
+<input type="button" value="登出" onclick="location.href='logout.php'">
 </div>
 <div class="chatroom">
 <div class="sidebar">
 <input id="findname" type="text" placeholder="搜尋使用者名稱">
 <button id="finduser">搜尋</button>
-<input type="button" value="登出" onclick="location.href='logout.php'">
 <div id="error" style="color:red; overflow:hidden"></div>
 <div id="chatlist">
 <?php
