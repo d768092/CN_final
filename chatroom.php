@@ -23,7 +23,7 @@ ini_set("Allow_url_Fopen", "On");
 			$.post('sendmsg.php',
 				{chat_to: name, timestamp: 0},
 				function(response){
-					console.log(response);
+					//console.log(response);
 					var json=JSON.parse(response);
 					if(json.hasOwnProperty("message")){
 						$('#msg').html(json.message);
@@ -76,8 +76,8 @@ ini_set("Allow_url_Fopen", "On");
 <div id="chatlist">
 <?php
 $namehash = hash('sha256', $username);
+if(!is_dir('user_data')) mkdir('user_data', 0755);
 $jsonfile = 'user_data/'.substr($namehash, 0, 16).'.json';
-//echo $jsonfile;
 $json_string = file_get_contents($jsonfile);
 $data = json_decode($json_string, true);
 foreach($data as $key => $value){
