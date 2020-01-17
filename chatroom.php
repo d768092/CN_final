@@ -23,11 +23,16 @@ ini_set("Allow_url_Fopen", "On");
 			$.post('sendmsg.php',
 				{chat_to: name, timestamp: 0},
 				function(response){
+					console.log(response);
 					var json=JSON.parse(response);
 					if(json.hasOwnProperty("message")){
 						$('#msg').html(json.message);
 						$('#timestamp').text(json.timestamp);
 				 		msg.scrollTop=msg.scrollHeight;
+					}
+					else{
+						$('#msg').text('');
+						$('#timestamp').text('0');
 					}
 				}
 			)
