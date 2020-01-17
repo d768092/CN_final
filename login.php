@@ -2,6 +2,7 @@
 $jsonfile = 'userpasswd.json';
 $username = $_POST["username"];
 $password = $_POST["password"];
+if(strlen($username)==0)exit;
 $hashed = hash('sha256', $password);
 
 $json_string = file_get_contents($jsonfile);

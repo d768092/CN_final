@@ -5,7 +5,7 @@ if(isset($_SESSION['username'])){
 	$username=$_SESSION['username'];
 }
 else{
-	header('Location: index.html');
+	header('Location: index.php');
 	exit;
 }
 ini_set("Allow_url_Fopen", "On");
