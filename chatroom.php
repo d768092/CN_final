@@ -138,6 +138,7 @@ foreach($data as $key => $value){
 				if(json.hasOwnProperty("message")){
 					$('#msg').append(json.message);
 					$('#timestamp').text(json.timestamp);
+					msg.scrollTop=msg.scrollHeight;
 				}
 			})
 			
@@ -193,11 +194,11 @@ foreach($data as $key => $value){
 				{chat_to: document.getElementById("chat_to").textContent,
 				timestamp: document.getElementById("timestamp").textContent},
 				function(response){
-					console.log(response);
 					var json=JSON.parse(response);
 					if(json.hasOwnProperty("message")){
 						$('#msg').append(json.message);
 						$('#timestamp').text(json.timestamp);
+						msg.scrollTop=msg.scrollHeight;
 					}
 				}
 			)
