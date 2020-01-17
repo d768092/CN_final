@@ -18,10 +18,11 @@ if(is_file($jsonfile)){
 	$data = json_decode($json_string, true);
 }
 else $data = array();
+$hash_filename = substr($namehash,0,16)."_".$file_name;
 
 $time = time();
 //$data[$file_name] = [$username, $time];
-$data[substr($namehash,0,16)."_".$file_name] = $time;
+$data[$hash_filename] = [$username, $time];
 //echo $data[$file_name][0]." time ".$data[$file_name][1];
 $json_string = json_encode($data);
 file_put_contents($jsonfile, $json_string);

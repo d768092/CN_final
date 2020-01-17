@@ -25,7 +25,7 @@ else{
 	$flag = "You can't access the file!";
 	foreach($data as $key => $value){
 		//echo $key." ".$hash_filename."\n";
-		if(abs($time- $value) > 10000){
+		if(abs($time - $value[1]) > 10000){
 			if($key == $hash_filename)	echo "File has been deleted by server!";
 			unset($data[$hash_filename]);
 			unlink("upload/".$hash_filename);
