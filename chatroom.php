@@ -67,7 +67,7 @@ ini_set("Allow_url_Fopen", "On");
                 }
             )
         }
-        setInterval(friends_order, 1000);
+        setInterval(friends_order, 5000);
         });
 
 	</script>
@@ -147,7 +147,7 @@ foreach($data as $key => $value) echo "<button onclick='send(\"$key\")'>".$key."
             if (temp=='') return;
 			$.post('sendmsg.php',
 			{chat_to : document.getElementById("chat_to").textContent,
-			input_msg: 'upload/'+ temp.substr(12),
+			input_msg: 'file: '+ temp.substr(12),
             timestamp:  document.getElementById("timestamp").textContent,
             order: 'change'},
 			function(response){	
@@ -229,7 +229,7 @@ foreach($data as $key => $value) echo "<button onclick='send(\"$key\")'>".$key."
 				if(response != "")	alert(response);
 			})
 		}
-		setInterval(getmsg, 1000);
+		setInterval(getmsg, 5000);
 		setInterval(getwhofile, 60000);
 </script>
 </body>
