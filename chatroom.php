@@ -147,14 +147,13 @@ foreach($data as $key => $value){
 					msg.scrollTop=msg.scrollHeight;
 				}
 			})
-			
 			$.post('add_to_file.php',
 			{chat_to : document.getElementById("chat_to").textContent,
 			file_name: temp.substr(12)},
 			function(response){
-				alert(response);}
+				if(response!='') alert(response);
+			}
 			)
-				
 
 			var form = document.getElementById("upload");
 			var formData = new FormData(form);
@@ -165,7 +164,7 @@ foreach($data as $key => $value){
 				processData: false,
 				contentType: false,
 				success: function(response){
-					alert(response);
+					if(response!='') alert(response);
 				}
 			});
 

@@ -12,6 +12,10 @@ $chat_to = $_POST['chat_to'];
 $file_name = $_POST['file_name'];
 $jsonfile = 'upload_record.json';
 $namehash = hash('sha256', $chat_to);
+if($chat_to=='選個朋友來聊天吧!') {
+	echo '';
+	exit;
+}
 echo "chat_to ".$chat_to."\n";
 if(is_file($jsonfile)){
 	$json_string = file_get_contents($jsonfile);

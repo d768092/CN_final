@@ -23,7 +23,10 @@ else{
 	}
 	
 	$flag = "You can't access the file!";
-    if($path=='') exit $flag;
+	if($path=='') {
+		echo $flag;
+		exit;
+	}
 	foreach($data as $key => $value){
 		//echo $key." ".$hash_filename."\n";
         if(abs($time - $value[1]) > 60){

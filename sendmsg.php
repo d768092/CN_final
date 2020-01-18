@@ -17,7 +17,13 @@ $username = 'd768092';
 $chat_to = 'cwg50805';
 $input_msg = null;
 $timestamp = '1579190075';
-*/
+ */
+
+if($chat_to=='選個朋友來聊天吧!') {
+	echo 'no friends';
+	exit;
+}
+
 $namehash = hash('sha256', $username);
 $jsonfile_user = 'user_data/'.substr($namehash, 0, 16).'.json';
 $json_string_user = file_get_contents($jsonfile_user);

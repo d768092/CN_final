@@ -3,6 +3,10 @@
 	//header("Location: chatroom.php");
 	ini_set("display_errors", "On");
 	$chat_to=$_POST['chat_to'];
+	if($chat_to=='選個朋友來聊天吧!') {
+		echo '';
+		exit;
+	}
 	//echo "Success First";
 	if(isset($_FILES['file'])){
 		//echo "Success Here";
