@@ -9,9 +9,10 @@ else{
 	exit;
 }
 	
-	$path = $_POST['path'];
+	//$path = $_POST['path'];
 	$jsonfile = 'upload_record.json';
-	$filename = substr($path, 7);
+	//$filename = substr($path, 7);
+	$filename = $_POST['path'];
 	$namehash = hash('sha256', $username);
 	//echo substr($namehash,0,16)."\n";
 	$hash_filename = substr($namehash,0,16)."_".$filename;
@@ -23,7 +24,7 @@ else{
 	}
 	
 	$flag = "You can't access the file!";
-	if($path=='') {
+	if($filename=='') {
 		echo $flag;
 		exit;
 	}

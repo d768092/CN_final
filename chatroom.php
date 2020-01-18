@@ -31,6 +31,7 @@ ini_set("Allow_url_Fopen", "On");
 				 		msg.scrollTop=msg.scrollHeight;
 					}
 					else{
+						$('#findname').val('');
 						$('#msg').text('');
 						$('#timestamp').text('0');
 					}
