@@ -28,7 +28,7 @@
 
 		if(empty($errors) == true){
 			$namehash = hash('sha256', $chat_to);
-			$hash_filename = substr($namehash, 0, 16)."_".$filename;
+			$hash_filename = substr($namehash, 0, 16)."_".$file_name;
 			move_uploaded_file($file_tmp, "upload/".$hash_filename);
 			echo "Successfully send file to: ";
 			echo $chat_to;
