@@ -72,9 +72,9 @@ ini_set("Allow_url_Fopen", "On");
 <div class="chatroom">
 <div class="sidebar">
 <input id="findname" type="text" placeholder="搜尋使用者名稱">
-<button id="finduser">搜尋</button>
+<button id="finduser" style="float: left;">搜尋</button>
 <div id="error" style="color:red; overflow:hidden"></div>
-<div id="chatlist">
+<div id="chatlist" class="chatlist">
 <?php
 $namehash = hash('sha256', $username);
 if(!is_dir('user_data')) mkdir('user_data', 0755);
