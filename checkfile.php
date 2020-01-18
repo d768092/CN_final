@@ -17,15 +17,17 @@ else{
 	$hash_filename = substr($namehash,0,16)."_".$filename;
 	//echo $hash_filename;
 	if(is_file($jsonfile)){
-	$json_string = file_get_contents($jsonfile);
-	$data = json_decode($json_string, true);
-	$time = time();
+        $json_string = file_get_contents($jsonfile);
+        $data = json_decode($json_string, true);
+        $time = time();
 	}
 	
 	$flag = "You can't access the file!";
+    if($path=='') exit $flag;
 	foreach($data as $key => $value){
 		//echo $key." ".$hash_filename."\n";
-		if(abs($time - $value[1]) > 10000){
+        if(abs($time - $value[1]) > 30){
+            // TODO: changed to 30 secs
 			if($key == $hash_filename)	echo "File has been deleted by server!";
 			unset($data[$hash_filename]);
 			unlink("upload/".$hash_filename);

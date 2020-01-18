@@ -15,7 +15,7 @@
 		$extensions= array("jpeg", "jpg", "png", "mp3", "txt");
 
 		if(in_array($file_ext, $extensions)=== false){
-			$errors[]= "extension not allowed, please choose a JPEG or PNG file.";
+			$errors[]= "extension not allowed, please choose a .jpeg, .jpg, .png, .mp3, .txt file.";
 		}
 
 		if($file_size > 15728640){

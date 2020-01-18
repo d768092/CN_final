@@ -133,7 +133,8 @@ foreach($data as $key => $value){
 		}
 		function sendfile()
 		{
-			var temp = ($("input[name=file]").val());
+            var temp = ($("input[name=file]").val());
+            if (temp=='') return;
 			$.post('sendmsg.php',
 			{chat_to : document.getElementById("chat_to").textContent,
 			input_msg: 'upload/'+ temp.substr(12),
@@ -216,7 +217,8 @@ foreach($data as $key => $value){
 			})
 		}
 		setInterval(getmsg, 5000);
-		setInterval(getwhofile, 40000);
+		setInterval(getwhofile, 20000);
+        // TODO: changed
 </script>
 </body>
 </html>

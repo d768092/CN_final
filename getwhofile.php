@@ -19,7 +19,7 @@ else{
 
 	foreach($data as $key => $value){
 		if(substr($key,0,16) == substr($namehash,0,16)){
-			echo $value[0]." send a file to you";
+			echo $value[0]." send a file to you\n";
 		}
 	}
 ?>
