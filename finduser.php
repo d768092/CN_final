@@ -8,6 +8,8 @@ else{
 	exit('error');
 }
 
+$time = time();
+
 $findname = $_POST["findname"];
 if($findname==$username||$findname=='') exit('');
 $jsonfile = 'userpasswd.json';
@@ -17,7 +19,7 @@ if(array_key_exists($findname, $data)){
 	$namehash = hash('sha256', $username);
 	$jsonfile = 'user_data/'.substr($namehash, 0, 16).'.json';
 	$msgfilehash = hash('sha256', $username^$findname);
-	$msgfile = 'msg_data/'.substr($msgfilehash, 0, 16).'.json';
+	$msgfile = $time.'msg_data/'.substr($msgfilehash, 0, 16).'.json';
 	if(is_file($jsonfile)){
 		$json_string = file_get_contents($jsonfile);
 		$data = json_decode($json_string, true);
