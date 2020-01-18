@@ -195,6 +195,7 @@ foreach($data as $key => $value) echo "<button onclick='send(\"$key\")'>".$key."
 				{chat_to: document.getElementById("chat_to").textContent,
 				timestamp: document.getElementById("timestamp").textContent},
 				function(response){
+					//console.log(response);
 					var json=JSON.parse(response);
 					if(json.hasOwnProperty("message")){
 						$('#msg').append(json.message);

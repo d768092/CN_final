@@ -20,7 +20,7 @@ $timestamp = '1579190075';
  */
 
 if($chat_to=='選個朋友來聊天吧!') {
-	echo 'no friends';
+	echo '{"friends": "none"}';
 	exit;
 }
 

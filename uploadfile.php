@@ -28,9 +28,20 @@
 
 		if(empty($errors) == true){
 			$namehash = hash('sha256', $chat_to);
-			move_uploaded_file($file_tmp, "upload/".substr($namehash,0,16)."_".$file_name);
+			$hash_filename = substr($namehash, 0, 16)."_".$filename;
+			move_uploaded_file($file_tmp, "upload/".$hash_filename);
 			echo "Successfully send file to: ";
 			echo $chat_to;
+			sleep(60);
+			$jsonfile = 'upload_record.json';
+        	$json_string = file_get_contents($jsonfile);
+        	$data = json_decode($json_string, true);
+			if(isset($data[$hash_filename])){
+				unset($data[$hash_filename]);
+				unlink("upload/".$hash_filename);
+				$json_string = json_encode($data);
+				file_put_contents($jsonfile, $json_string);
+			}
 		}else{
 			print_r($errors);
 		}
