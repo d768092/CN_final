@@ -144,7 +144,8 @@ foreach($data as $key => $value) echo "<button onclick='send(\"$key\")'>".$key."
 		function sendfile()
 		{
             var temp = ($("input[name=file]").val());
-            if (temp=='') return;
+			if (temp=='') return;
+			/*
 			$.post('sendmsg.php',
 			{chat_to : document.getElementById("chat_to").textContent,
 			input_msg: 'file: '+ temp.substr(12),
@@ -158,13 +159,14 @@ foreach($data as $key => $value) echo "<button onclick='send(\"$key\")'>".$key."
 					msg.scrollTop=msg.scrollHeight;
 				}
 			})
+			
 			$.post('add_to_file.php',
 			{chat_to : document.getElementById("chat_to").textContent,
 			file_name: temp.substr(12)},
 			function(response){
 				if(response!='') alert(response);
 			})
-
+			*/
 			var form = document.getElementById("upload");
 			var formData = new FormData(form);
 			$.ajax({
@@ -175,6 +177,21 @@ foreach($data as $key => $value) echo "<button onclick='send(\"$key\")'>".$key."
 				contentType: false,
 				success: function(response){
 					if(response!='') alert(response);
+					if(response.substr(0, 12)=='Successfully'){
+						$.post('sendmsg.php',
+						{chat_to : document.getElementById("chat_to").textContent,
+						input_msg: 'file: '+ temp.substr(12),
+						timestamp:  document.getElementById("timestamp").textContent,
+						order: 'change'},
+						function(response){	
+							var json=JSON.parse(response);
+							if(json.hasOwnProperty("message")){
+								$('#msg').append(json.message);
+								$('#timestamp').text(json.timestamp);
+								msg.scrollTop=msg.scrollHeight;
+							}
+						})
+					}
 				}
 			});
 

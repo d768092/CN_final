@@ -13,12 +13,6 @@ $chat_to = $_POST['chat_to'];
 $input_msg = $_POST['input_msg'];
 $timestamp = $_POST['timestamp'];
 $order = $_POST['order'];
-/*
-$username = 'd768092';
-$chat_to = 'cwg50805';
-$input_msg = null;
-$timestamp = '1579190075';
- */
 
 if($chat_to=='選個朋友來聊天吧!') {
 	echo '{"friends": "none"}';
