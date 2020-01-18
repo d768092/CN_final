@@ -26,8 +26,8 @@ else{
     if($path=='') exit $flag;
 	foreach($data as $key => $value){
 		//echo $key." ".$hash_filename."\n";
-        if(abs($time - $value[1]) > 30){
-            // TODO: changed to 30 secs
+        if(abs($time - $value[1]) > 60){
+            // TODO: changed to 60 secs
 			if($key == $hash_filename)	echo "File has been deleted by server!";
 			unset($data[$hash_filename]);
 			unlink("upload/".$hash_filename);
