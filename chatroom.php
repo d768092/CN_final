@@ -68,7 +68,6 @@ ini_set("Allow_url_Fopen", "On");
             )
         }
         setInterval(friends_order, 1000);
-        // TODO
         });
 
 	</script>
@@ -134,6 +133,7 @@ foreach($data as $key => $value) echo "<button onclick='send(\"$key\")'>".$key."
 				processData: false,
 				contentType: false,
 				success: function(response){
+                    if(response == '') return;
 					alert(response);
 					if(response == "You can download the file!"){
 						$('#submit_download').prop("disabled", false);
@@ -230,8 +230,7 @@ foreach($data as $key => $value) echo "<button onclick='send(\"$key\")'>".$key."
 			})
 		}
 		setInterval(getmsg, 1000);
-		setInterval(getwhofile, 20000);
-        // TODO: changed
+		setInterval(getwhofile, 60000);
 </script>
 </body>
 </html>

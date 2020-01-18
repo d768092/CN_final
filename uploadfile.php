@@ -33,7 +33,7 @@
 			move_uploaded_file($file_tmp, "upload/".$hash_filename);
 			echo "Successfully send file to: ";
 			echo $chat_to;
-			sleep(60);
+			sleep(300);
 			$jsonfile = 'upload_record.json';
         	$json_string = file_get_contents($jsonfile);
         	$data = json_decode($json_string, true);
