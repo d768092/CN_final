@@ -32,8 +32,7 @@ if(array_key_exists($findname, $data)){
 	$data[$findname] = $msgfile;
 	$json_string = json_encode($data);
 	file_put_contents($jsonfile, $json_string);
-	$func = "send('".$findname."')>";
-	echo '<button onclick='.$func.$findname.'</button><br>';
+	echo "<button onclick='send(\"$findname\")'>".$findname."</button><br>";
 }
 else echo "找不到用戶";
 ?>

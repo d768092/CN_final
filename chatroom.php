@@ -80,10 +80,7 @@ if(!is_dir('user_data')) mkdir('user_data', 0755);
 $jsonfile = 'user_data/'.substr($namehash, 0, 16).'.json';
 $json_string = file_get_contents($jsonfile);
 $data = json_decode($json_string, true);
-foreach($data as $key => $value){
-	$func = "send('".$key."')>";
-	echo '<button onclick='.$func.$key.'</button><br>';
-}
+foreach($data as $key => $value) echo "<button onclick='send(\"$key\")'>".$key."</button><br>";
 ?>
 </div>
 </div>
@@ -127,9 +124,9 @@ foreach($data as $key => $value){
 					alert(response);
 					if(response == "You can download the file!"){
 						$('#submit_download').prop("disabled", false);
+					}
 				}
-				}
-		})
+			})
 		}
 		function sendfile()
 		{
@@ -152,8 +149,7 @@ foreach($data as $key => $value){
 			file_name: temp.substr(12)},
 			function(response){
 				if(response!='') alert(response);
-			}
-			)
+			})
 
 			var form = document.getElementById("upload");
 			var formData = new FormData(form);
