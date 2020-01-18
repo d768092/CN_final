@@ -2,7 +2,8 @@
 $jsonfile = 'userpasswd.json';
 $username = $_POST["username"];
 $password = $_POST["password"];
-if(strlen($username)==0)exit;
+if($username=='')exit;
+if(!ctype_alnum($username)) exit('帳號：請輸入英文或數字');
 $hashed = hash('sha256', $password);
 
 $json_string = file_get_contents($jsonfile);
@@ -13,7 +14,7 @@ if(array_key_exists($username, $data)){
 		$_SESSION['username']=$username;
 		echo "success";
 	}
-	else echo "wrong password";
+	else echo "密碼錯誤";
 }
-else echo "no such user";
+else echo "找不到用戶";
 ?>

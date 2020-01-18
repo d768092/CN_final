@@ -24,7 +24,7 @@ if(isset($_SESSION['username'])){
 						if(response=='success'){
 							window.location='chatroom.php';
                         }
-                        else if(response=='wrong password'){
+                        else if(response=='密碼錯誤'){
 							$('#error').text(response);
 							$('#password').val(''); 
                         }
@@ -44,7 +44,7 @@ if(isset($_SESSION['username'])){
 						if(response=='success\n'){
 							$('#error').text('帳號建立完成~');
 						}
-                        else if(response=='password too short (at least 8 characters)'){
+                        else if(response=='密碼：請輸入至少8個字元'){
                             $('#error').text(response);
                             $('#password').val('');
                         }

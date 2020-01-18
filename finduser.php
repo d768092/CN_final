@@ -9,7 +9,7 @@ else{
 }
 
 $findname = $_POST["findname"];
-if($findname==$username) exit('');
+if($findname==$username||$findname=='') exit('');
 $jsonfile = 'userpasswd.json';
 $json_string = file_get_contents($jsonfile);
 $data = json_decode($json_string, true);
@@ -35,5 +35,5 @@ if(array_key_exists($findname, $data)){
 	$func = "send('".$findname."')>";
 	echo '<button onclick='.$func.$findname.'</button><br>';
 }
-else echo "not found";
+else echo "找不到用戶";
 ?>

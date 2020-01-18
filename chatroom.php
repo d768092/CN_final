@@ -46,7 +46,7 @@ ini_set("Allow_url_Fopen", "On");
 						if(response=='error'){
 							alert('請重新整理網頁!');
 						}
-						else if(response=='not found'){
+						else if(response=='找不到用戶'){
 							$('#error').text(response);
 						}
 						else{
@@ -168,7 +168,7 @@ foreach($data as $key => $value){
 				}
 			});
 
-		}
+		==0}
 		function showname(){
 		 	var temp = ($("input[name=file]").val());
 			if(temp!='') alert('Select Files: '+ temp.substr(12));
