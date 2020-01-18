@@ -21,9 +21,9 @@ ini_set("Allow_url_Fopen", "On");
 		function send(name){
 			$('#chat_to').text(name);
 			$.post('sendmsg.php',
-				{chat_to: name, timestamp: 0},
+				{chat_to: name, timestamp: 0, order: 'keep'},
 				function(response){
-					//console.log(response);
+					// console.log(response);
 					var json=JSON.parse(response);
 					if(json.hasOwnProperty("message")){
 						$('#msg').html(json.message);
@@ -51,12 +51,23 @@ ini_set("Allow_url_Fopen", "On");
 							$('#error').text(response);
 						}
 						else{
+                            $('#findname').val('');
 							$('#error').text('');
 							$('#chatlist').append(response);
 						}
 					}
 				)
             });
+
+        function friends_order() {        
+            $.post('friends_order.php', {username: $('h1').html()},
+                function(response){
+                    $('#chatlist').html('');
+                    $('#chatlist').append(response);
+                }
+            )
+        }
+        setInterval(friends_order, 1000);
         });
 
 	</script>
@@ -108,7 +119,7 @@ foreach($data as $key => $value) echo "<button onclick='send(\"$key\")'>".$key."
 </div>
 </div>
 </div>
-<script> 	
+<script>
 		function dissubmit(){
 			$('#submit_download').prop("disabled", true);
 		}
@@ -122,6 +133,7 @@ foreach($data as $key => $value) echo "<button onclick='send(\"$key\")'>".$key."
 				processData: false,
 				contentType: false,
 				success: function(response){
+                    if(response == '') return;
 					alert(response);
 					if(response == "You can download the file!"){
 						$('#submit_download').prop("disabled", false);
@@ -136,7 +148,8 @@ foreach($data as $key => $value) echo "<button onclick='send(\"$key\")'>".$key."
 			$.post('sendmsg.php',
 			{chat_to : document.getElementById("chat_to").textContent,
 			input_msg: 'upload/'+ temp.substr(12),
-			timestamp:  document.getElementById("timestamp").textContent},
+            timestamp:  document.getElementById("timestamp").textContent,
+            order: 'change'},
 			function(response){	
 				var json=JSON.parse(response);
 				if(json.hasOwnProperty("message")){
@@ -180,8 +193,10 @@ foreach($data as $key => $value) echo "<button onclick='send(\"$key\")'>".$key."
 			$.post('sendmsg.php',
 			{chat_to: document.getElementById("chat_to").textContent,
 			 input_msg: document.getElementById("input_msg").value,
-			 timestamp: document.getElementById("timestamp").textContent},
+             timestamp: document.getElementById("timestamp").textContent,
+             order: 'change'},
 			 function(response){
+                // console.log(response);
 				var json=JSON.parse(response);
 				if(json.hasOwnProperty("message")){
 					$('#msg').append(json.message);
@@ -194,7 +209,8 @@ foreach($data as $key => $value) echo "<button onclick='send(\"$key\")'>".$key."
 		function getmsg(){
 			$.post('sendmsg.php',
 				{chat_to: document.getElementById("chat_to").textContent,
-				timestamp: document.getElementById("timestamp").textContent},
+                timestamp: document.getElementById("timestamp").textContent,
+                order: 1},
 				function(response){
 					//console.log(response);
 					var json=JSON.parse(response);
@@ -213,9 +229,8 @@ foreach($data as $key => $value) echo "<button onclick='send(\"$key\")'>".$key."
 				if(response != "")	alert(response);
 			})
 		}
-		setInterval(getmsg, 5000);
-		setInterval(getwhofile, 20000);
-        // TODO: changed
+		setInterval(getmsg, 1000);
+		setInterval(getwhofile, 60000);
 </script>
 </body>
 </html>
