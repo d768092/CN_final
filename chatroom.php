@@ -62,8 +62,8 @@ ini_set("Allow_url_Fopen", "On");
         function friends_order() {        
             $.post('friends_order.php', {username: $('h1').html()},
                 function(response){
-                    $('#chatlist').html('');
-                    $('#chatlist').append(response);
+                    //$('#chatlist').html('');
+                    $('#chatlist').html(response);
                 }
             )
         }
