@@ -169,7 +169,7 @@ foreach($data as $key => $value){
 				}
 			});
 
-		==0}
+		}
 		function showname(){
 		 	var temp = ($("input[name=file]").val());
 			if(temp!='') alert('Select Files: '+ temp.substr(12));
