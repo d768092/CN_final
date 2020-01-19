@@ -17,5 +17,5 @@ else{
 	header("Content-Transfer-Encoding: Binary");
 	header("Content-disposition: attachment; filename=\"".$filename."\"");
 	readfile("upload/".$hash_filename);
-	unlink("upload/".$hash_file_name);
+	unlink("upload/".$hash_filename);
 ?>
