@@ -78,7 +78,7 @@ ini_set("Allow_url_Fopen", "On");
 				)
 			}		
 		}
-		setInterval(getmsg, 5000);
+		setInterval(getmsg, 2000);
 
 		function sendfile()
 		{
@@ -160,7 +160,7 @@ ini_set("Allow_url_Fopen", "On");
 			})
 		}
 
-		function find_user() {
+        function find_user() {
 			$.post('finduser.php',
 				{findname: $('#findname').val()},
 				function(response){
@@ -187,7 +187,7 @@ ini_set("Allow_url_Fopen", "On");
                 }
             )
         }
-        setInterval(friends_order, 5000);
+        setInterval(friends_order, 2000);
      
 
 	</script>
@@ -203,7 +203,7 @@ ini_set("Allow_url_Fopen", "On");
 <div class="chatroom">
 <div class="sidebar">
 <input id="findname" type="text" placeholder="搜尋使用者名稱" onclick="find_user()">
-<button id="finduser" style="float: left;">搜尋</button>
+<button id="finduser" style="float: left;" onclick="find_user()">搜尋</button>
 <div id="error" style="width: 100px; color:red; overflow:hidden"></div>
 <div id="chatlist" class="chatlist">
 <?php
