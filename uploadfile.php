@@ -5,7 +5,6 @@ if($chat_to=='選個朋友來聊天吧!') {
 	echo '';
 	exit;
 }
-//echo "Success First";
 if(isset($_FILES['file'])){
 	$errors = array();
 	$file_name = $_FILES['file']['name'];
@@ -31,26 +30,6 @@ if(isset($_FILES['file'])){
 		$jsonfile = 'upload_record.json';
 		echo "Successfully send file to: ";
 		echo $chat_to;
-		/*
-		$pid = pcntl_fork();
-		if($pid==-1){
-			die('subprocess error');
-		}
-		else if($pid){
-			exit;
-		}
-		else{
-			sleep(300);
-			$json_string = file_get_contents($jsonfile);
-			$data = json_decode($json_string, true);
-			if(isset($data[$hash_filename])){
-				unset($data[$hash_filename]);
-				unlink("upload/".$hash_filename);
-				$json_string = json_encode($data);
-				file_put_contents($jsonfile, $json_string);
-			}
-		}
-		*/
 	}else{
 		print_r($errors);
 	}
