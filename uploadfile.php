@@ -1,12 +1,4 @@
 <?php
-session_start();
-if(isset($_SESSION['username'])){
-	$username=$_SESSION['username'];
-}
-else{
-	//alert('time out');
-	exit;
-}
 ini_set("display_errors", "On");
 $chat_to=$_POST['chat_to'];
 if($chat_to=='選個朋友來聊天吧!') {
@@ -15,7 +7,6 @@ if($chat_to=='選個朋友來聊天吧!') {
 }
 //echo "Success First";
 if(isset($_FILES['file'])){
-	//echo "Success Here";
 	$errors = array();
 	$file_name = $_FILES['file']['name'];
 	$file_size = $_FILES['file']['size'];
@@ -38,23 +29,15 @@ if(isset($_FILES['file'])){
 		if(!is_dir('upload')) mkdir('upload', 0755);
 		move_uploaded_file($file_tmp, "upload/".$hash_filename);
 		$jsonfile = 'upload_record.json';
-		if(is_file($jsonfile)){
-			$json_string = file_get_contents($jsonfile);
-			$data = json_decode($json_string, true);
-		}
-		else $data = array();
-		$time = time();
-		$data[$hash_filename] = [$username, $time];
-		$json_string = json_encode($data);
-		file_put_contents($jsonfile, $json_string);
 		echo "Successfully send file to: ";
 		echo $chat_to;
 		/*
 		$pid = pcntl_fork();
 		if($pid==-1){
 			die('subprocess error');
-		}else if($pid){
-			exit();
+		}
+		else if($pid){
+			exit;
 		}
 		else{
 			sleep(300);

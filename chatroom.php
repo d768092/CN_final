@@ -18,6 +18,8 @@ ini_set("Allow_url_Fopen", "On");
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>
+		var onsend=0;
+
 		function send(name){
 			$('#chat_to').text(name);
 			$.post('sendmsg.php',
@@ -38,26 +40,144 @@ ini_set("Allow_url_Fopen", "On");
 				}
 			)
 		}
-		
-		$(document).ready(function() {
-			$("#finduser").click(function() {
-				$.post('finduser.php',
-					{findname: $('#findname').val()},
+
+		function sendmsg()
+		{
+			onsend=1;
+			$.post('sendmsg.php',
+			{chat_to: document.getElementById("chat_to").textContent,
+			 input_msg: document.getElementById("input_msg").value,
+             timestamp: document.getElementById("timestamp").textContent,
+             order: 'change'},
+			 function(response){
+				onsend=0;
+				var json=JSON.parse(response);
+				if(json.hasOwnProperty("message")){
+					$('#msg').append(json.message);
+					$('#timestamp').text(json.timestamp);
+			 		$('#input_msg').val('');
+					msg.scrollTop=msg.scrollHeight;
+			 	}
+			})
+		}
+
+		function getmsg(){
+			if(onsend==0){
+				$.post('sendmsg.php',
+					{chat_to: document.getElementById("chat_to").textContent,
+					timestamp: document.getElementById("timestamp").textContent,
+					order: 1},
 					function(response){
-						if(response=='error'){
-							alert('請重新整理網頁!');
-						}
-						else if(response=='找不到用戶'){
-							$('#error').text(response);
-						}
-						else{
-                            $('#findname').val('');
-							$('#error').text('');
-							$('#chatlist').append(response);
+						var json=JSON.parse(response);
+						if(json.hasOwnProperty("message")){
+							$('#msg').append(json.message);
+							$('#timestamp').text(json.timestamp);
+							msg.scrollTop=msg.scrollHeight;
 						}
 					}
 				)
-            });
+			}		
+		}
+		setInterval(getmsg, 5000);
+
+		function sendfile()
+		{
+            var temp = ($("input[name=file]").val());
+			if (temp=='') return;
+			var form = document.getElementById("upload");
+			var formData = new FormData(form);
+			$.ajax({
+				url: 'uploadfile.php',
+				data: formData,
+				type: 'POST',
+				processData: false,
+				contentType: false,
+				success: function(response){
+					if(response!='') alert(response);
+					$("input[name=file]").val('');
+					if(response.substr(0, 12)=='Successfully'){
+						$.post('add_to_file.php',
+						{chat_to : document.getElementById("chat_to").textContent,
+						file_name: temp.substr(12)},
+						function(response){;})
+						onsend=1;
+						$.post('sendmsg.php',
+						{chat_to : document.getElementById("chat_to").textContent,
+						input_msg: 'file: '+ temp.substr(12),
+						timestamp:  document.getElementById("timestamp").textContent,
+						order: 'change'},
+						function(response){	
+							var json=JSON.parse(response);
+							if(json.hasOwnProperty("message")){
+								$('#msg').append(json.message);
+								$('#timestamp').text(json.timestamp);
+								msg.scrollTop=msg.scrollHeight;
+							}
+						})
+					}
+				}
+			});
+		}
+
+		function getwhofile(){
+			$.post('getwhofile.php',
+			{timestamp: document.getElementById("timestamp").textContent},
+			function(response){
+				if(response != "")	alert(response);
+			})
+		}
+		setInterval(getwhofile, 60000);
+
+		function showname(){
+		 	var temp = ($("input[name=file]").val());
+			if(temp!='') alert('Select Files: '+ temp.substr(12));
+		}
+
+		function setvalue(){
+			$("input[name=chat_to]").val($("#chat_to").text());
+		}
+
+		function dissubmit(){
+			$('#submit_download').prop("disabled", true);
+		}
+
+		function downloadfile(){
+			var form = document.getElementById("download");
+			var formData = new FormData(form);
+			$.ajax({
+				url:	'checkfile.php',
+				type: 	'POST',
+				data:	formData,
+				processData: false,
+				contentType: false,
+				success: function(response){
+                    if(response == '') return;
+					alert(response);
+					if(response == "You can download the file!"){
+						$('#submit_download').prop("disabled", false);
+					}
+				}
+			})
+		}
+
+		function find_user() {
+			$.post('finduser.php',
+				{findname: $('#findname').val()},
+				function(response){
+					if(response=='error'){
+						alert('請重新整理網頁!');
+					}
+					else if(response=='找不到用戶'){
+						$('#error').text(response);
+					}
+					else{
+						$('#findname').val('');
+						$('#error').text('');
+						$('#chatlist').append(response);
+					}
+				}
+			)
+		}
 
         function friends_order() {        
             $.post('friends_order.php', {username: $('h1').html()},
@@ -68,7 +188,7 @@ ini_set("Allow_url_Fopen", "On");
             )
         }
         setInterval(friends_order, 5000);
-        });
+     
 
 	</script>
 	<title>popCorN</title>
@@ -82,7 +202,7 @@ ini_set("Allow_url_Fopen", "On");
 </div>
 <div class="chatroom">
 <div class="sidebar">
-<input id="findname" type="text" placeholder="搜尋使用者名稱">
+<input id="findname" type="text" placeholder="搜尋使用者名稱" onclick="find_user()">
 <button id="finduser" style="float: left;">搜尋</button>
 <div id="error" style="width: 100px; color:red; overflow:hidden"></div>
 <div id="chatlist" class="chatlist">
@@ -119,7 +239,7 @@ foreach($data as $key => $value) echo "<button onclick='send(\"$key\")'>".$key."
 </div>
 </div>
 </div>
-<script>
+<!--<script>
 		function dissubmit(){
 			$('#submit_download').prop("disabled", true);
 		}
@@ -177,7 +297,15 @@ foreach($data as $key => $value) echo "<button onclick='send(\"$key\")'>".$key."
 				contentType: false,
 				success: function(response){
 					if(response!='') alert(response);
+					$("input[name=file]").val('');
 					if(response.substr(0, 12)=='Successfully'){
+						$.post('add_to_file.php',
+						{chat_to : document.getElementById("chat_to").textContent,
+						file_name: temp.substr(12)},
+						function(response){
+							//if(response!='') alert(response);
+							;
+						})
 						$.post('sendmsg.php',
 						{chat_to : document.getElementById("chat_to").textContent,
 						input_msg: 'file: '+ temp.substr(12),
@@ -224,6 +352,7 @@ foreach($data as $key => $value) echo "<button onclick='send(\"$key\")'>".$key."
 			})
 		}
 		function getmsg(){
+			if(onsend==0){
 			$.post('sendmsg.php',
 				{chat_to: document.getElementById("chat_to").textContent,
                 timestamp: document.getElementById("timestamp").textContent,
@@ -238,6 +367,7 @@ foreach($data as $key => $value) echo "<button onclick='send(\"$key\")'>".$key."
 					}
 				}
 			)
+			}		
 		}
 		function getwhofile(){
 			$.post('getwhofile.php',
@@ -248,6 +378,6 @@ foreach($data as $key => $value) echo "<button onclick='send(\"$key\")'>".$key."
 		}
 		setInterval(getmsg, 5000);
 		setInterval(getwhofile, 60000);
-</script>
+</script>-->
 </body>
 </html>
